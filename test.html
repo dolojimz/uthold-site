@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- pre-launch preview: remove this line at launch -->
+<meta name="robots" content="noindex">
+<title>Free VO₂ max test — no signup — Uthold</title>
+<meta name="description" content="Estimate your VO₂ max with a 12-minute run or a 1-mile walk. Free, no signup, runs entirely in your browser. Nothing you enter is sent anywhere.">
+<link rel="icon" href="brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="brand/png/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="test.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <rect x="2" y="20" width="60" height="3" rx="1.5" fill="var(--mark-ceiling)"/>
+        <rect x="7" y="42" width="8" height="12" rx="1" fill="var(--mark-bars)"/>
+        <rect x="21" y="34" width="8" height="20" rx="1" fill="var(--mark-bars)"/>
+        <rect x="35" y="27" width="8" height="27" rx="1" fill="var(--mark-bars)"/>
+        <rect x="49" y="10" width="8" height="44" rx="1" fill="var(--mark-hero)"/>
+      </svg>
+      Uthold
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="index.html#how">How it works</a>
+      <a href="index.html#evidence">Why VO₂ max</a>
+      <a href="index.html#waitlist">Waitlist</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<div class="wrap">
+<header>
+  <div class="eyebrow">Free &middot; no signup &middot; #VO2MAXXING</div>
+  <h1>What's your VO&#8322; max?</h1>
+  <p class="deck">Two field tests you can do today with no lab and no watch. You'll get your score,
+  how it compares for your age and sex, and your fitness age.</p>
+</header>
+
+<div class="safety">
+  <b>Before you test:</b> both tests are hard efforts. Check any box below that applies to you —
+  nothing is sent anywhere, and your answers only decide what this page shows you.
+  <div id="screen">
+    <label class="chk"><input type="checkbox" id="q-symptoms"> I get chest pain or pressure, unusual breathlessness, dizziness, fainting or palpitations</label>
+    <label class="chk"><input type="checkbox" id="q-disease"> I have a heart, lung, metabolic or kidney condition, or take medication for one</label>
+    <label class="chk"><input type="checkbox" id="q-inactive"> I have not exercised regularly in the last 3 months</label>
+  </div>
+  <div id="screenMsg"></div>
+</div>
+
+<div class="card" id="testCard">
+  <h2>Pick your test</h2>
+  <p class="hint">Choose the walk test if running hard for 12 minutes isn't realistic today.</p>
+
+  <div class="tabs" role="tablist">
+    <button role="tab" id="tab-cooper" aria-selected="true" aria-controls="panel-cooper">Cooper 12-minute run</button>
+    <button role="tab" id="tab-rockport" aria-selected="false" aria-controls="panel-rockport">Rockport 1-mile walk</button>
+  </div>
+
+  <div class="grid">
+    <div><label for="age">Age</label><input id="age" type="number" min="18" max="90" step="1" placeholder="44" inputmode="numeric"></div>
+    <div><label for="sex">Sex</label><select id="sex"><option value="male">Male</option><option value="female">Female</option></select></div>
+  </div>
+
+  <!-- Cooper -->
+  <div id="panel-cooper" role="tabpanel" aria-labelledby="tab-cooper">
+    <div class="timer">
+      <span class="clock" id="clock">12:00</span>
+      <button class="tbtn" id="startBtn" type="button">Start 12:00</button>
+      <button class="tbtn" id="resetBtn" type="button">Reset</button>
+    </div>
+    <div class="grid" style="margin-top:16px">
+      <div>
+        <label for="dist">Distance covered</label>
+        <div class="row-unit">
+          <input id="dist" type="number" min="100" step="10" placeholder="2600" inputmode="decimal">
+          <select id="distUnit" style="width:auto"><option value="m">metres</option><option value="km">km</option><option value="mi">miles</option></select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rockport -->
+  <div id="panel-rockport" role="tabpanel" aria-labelledby="tab-rockport" hidden>
+    <div class="grid">
+      <div>
+        <label for="walkmin">1-mile walk time</label>
+        <div class="row-unit">
+          <input id="walkmin" type="number" min="5" max="40" step="0.01" placeholder="15.5" inputmode="decimal">
+          <select id="walkUnit" style="width:auto"><option value="min">minutes</option></select>
+        </div>
+      </div>
+      <div><label for="endhr">Heart rate at the finish (bpm)</label><input id="endhr" type="number" min="60" max="220" step="1" placeholder="130" inputmode="numeric"></div>
+      <div>
+        <label for="weight">Body weight</label>
+        <div class="row-unit">
+          <input id="weight" type="number" min="30" step="0.5" placeholder="180" inputmode="decimal">
+          <select id="wUnit" style="width:auto"><option value="lb">lb</option><option value="kg">kg</option></select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="go" id="calc" type="button">Get my score</button>
+  <p class="hint" id="err" style="color:var(--arterial);margin:12px 0 0"></p>
+</div>
+
+<div id="result">
+  <div class="score">
+    <div class="top">
+      <div class="eyebrow">Estimated VO&#8322; max</div>
+      <div class="big" id="vo2">&mdash;</div>
+      <div class="unit">mL/kg/min</div>
+    </div>
+    <div class="bar"><i id="barfill" style="width:0%"></i></div>
+    <div class="barlabels"><span>0th</span><span>50th</span><span>100th percentile</span></div>
+    <div class="facts">
+      <div class="fact"><div class="k">Percentile</div><div class="v" id="pct">&mdash;</div></div>
+      <div class="fact"><div class="k">Category</div><div class="v" id="cat">&mdash;</div></div>
+      <div class="fact"><div class="k">Fitness age</div><div class="v" id="fage">&mdash;</div></div>
+    </div>
+  </div>
+
+  <div class="share" id="shareText">&mdash;</div>
+  <button class="copy" id="copyBtn" type="button">Copy to share</button>
+
+  <details>
+    <summary>What this number means</summary>
+    <p style="margin-top:12px">VO&#8322; max is how much oxygen your body can use at full effort. Higher
+    cardiorespiratory fitness is <b>linked to</b> lower rates of heart disease and early death in
+    large population studies &mdash; in the Norwegian HUNT study, each extra 3.5 mL/kg/min was
+    associated with about 21% lower risk of cardiovascular death.</p>
+    <p>That's an association across populations, not a prediction about you. This test can't tell you
+    anything about your health, and it isn't medical advice.</p>
+    <p style="margin-bottom:0">The good news is that it moves. Most people who train it deliberately
+    for 12 weeks gain a few points, though some gain little &mdash; response varies a lot between
+    individuals.</p>
+  </details>
+
+  <details>
+    <summary>How accurate is this?</summary>
+    <p style="margin-top:12px">Field tests estimate; they don't measure. The Cooper test correlated
+    about r&nbsp;=&nbsp;0.90 with lab treadmill testing in its original study, and the Rockport walk
+    about R&nbsp;=&nbsp;0.88. A correlation describes how well an equation tracked a group &mdash; it does
+    not tell you how close <i>your</i> own number is, which can be further off.</p>
+    <p><b>Where each test applies.</b> The walk test was validated on adults aged 30&ndash;69 and is too
+    easy to be useful if you are already fit; published guidance subtracts about 6&nbsp;mL/kg/min for
+    ages 18&ndash;24. Outside 30&ndash;69, treat a walk result as rough. Both tests depend on pacing and on
+    going genuinely hard.</p>
+    <p style="margin-bottom:0"><b>Comparisons only work against the same test.</b> A Cooper result
+    isn't comparable to a Rockport result, to a lab test, or to your watch's estimate. If you retest
+    later, repeat the same test on the same route.</p>
+  </details>
+
+  <details>
+    <summary>How to raise it</summary>
+    <p style="margin-top:12px">Intervals are the strongest single lever, and the weekly aerobic
+    volume around them is what lets you repeat them. A common session is the Norwegian 4&times;4:
+    after a 10-minute warm-up, four 4-minute efforts at 90&ndash;95% of max heart rate, each followed
+    by 3 minutes easy.</p>
+    <p>Two hard sessions a week is plenty for most people, never on back-to-back days, with the rest
+    of the week genuinely easy.</p>
+    <p style="margin-bottom:0"><b>If you have not trained in a while, don&rsquo;t start here.</b> Build 2&ndash;4
+    weeks of easy aerobic work first, then begin with shorter efforts &mdash; three 3-minute intervals
+    rather than four 4-minute ones.</p>
+  </details>
+</div>
+
+<details>
+  <summary>How to do each test properly</summary>
+  <h3 style="font-size:16px;margin:16px 0 8px">Cooper 12-minute run</h3>
+  <ol>
+    <li>Find a flat loop or a track. Avoid hills and wind if you can.</li>
+    <li>Warm up easy for 10 minutes.</li>
+    <li>Cover as much distance as possible in 12 minutes, at a pace you can just hold to the end.</li>
+    <li>Record the distance and enter it above.</li>
+  </ol>
+  <h3 style="font-size:16px;margin:16px 0 8px">Rockport 1-mile walk</h3>
+  <ol>
+    <li>Find a flat measured mile, or four laps of a 400 m track plus 9 m.</li>
+    <li>Walk it as fast as you can without running.</li>
+    <li>Record your time, and take your heart rate immediately at the finish.</li>
+  </ol>
+  <p style="margin:14px 0 0"><b>For a fair retest:</b> same test, same route, same time of day, and
+  no hard training in the previous 48 hours.</p>
+</details>
+
+<footer>
+  Norms: HUNT 3 Fitness Study reference data (3,816 healthy adults, directly measured), used here for
+  percentile and fitness age. HUNT publishes a mean and standard deviation per age decade; this page
+  derives your percentile by assuming those follow a normal distribution and by treating the mean as
+  the middle of the group. That is a modelling choice HUNT did not validate, and it is least reliable
+  at the extremes. HUNT&rsquo;s oldest group is 70+ rather than a single decade, so ages above 75 are
+  approximate. These norms run higher than US FRIEND registry norms, so the percentile is indicative,
+  not official. Categories follow ACSM percentile bands. Cooper (1968) and Rockport (Kline 1987)
+  equations as published. Norm tables exist only for male and female groups.
+  <br>Not medical advice.
+</footer>
+</div>
+<div class="wrap">
+  <div class="after-test">
+    <h2>Got your number?</h2>
+    <p>That is the baseline. Uthold turns it, a goal and the hours you actually have into the
+    sessions you train each week &mdash; and adjusts when your recovery says to. iOS first, in build now.</p>
+    <a class="btn btn-primary" href="index.html#waitlist">Join the waitlist</a>
+  </div>
+</div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:10px">
+      <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <rect x="2" y="20" width="60" height="3" rx="1.5" fill="var(--mark-ceiling)"/>
+        <rect x="7" y="42" width="8" height="12" rx="1" fill="var(--mark-bars)"/>
+        <rect x="21" y="34" width="8" height="20" rx="1" fill="var(--mark-bars)"/>
+        <rect x="35" y="27" width="8" height="27" rx="1" fill="var(--mark-bars)"/>
+        <rect x="49" y="10" width="8" height="44" rx="1" fill="var(--mark-hero)"/>
+      </svg>
+          Uthold
+        </a>
+        <p class="eyebrow">OOT-hold &middot; Norwegian, &ldquo;endure&rdquo;</p>
+      </div>
+      <nav aria-label="Footer">
+        <a href="index.html">Home</a>
+        <a href="index.html#how">How it works</a>
+        <a href="privacy.html">Privacy</a>
+      </nav>
+    </div>
+    <p class="fine">Uthold is a general wellness product. It does not diagnose, treat, cure or
+    prevent any disease, and it is not medical advice. Nothing you enter on this page is sent
+    anywhere &mdash; the calculation runs entirely in your browser.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // HUNT 3 reference data: mean VO2max (mL/kg/min) and SD, by decade midpoint.
+  var NORMS = {
+    male:   [{a:25,m:54.4,s:8.4},{a:35,m:49.1,s:7.5},{a:45,m:47.2,s:7.7},{a:55,m:42.6,s:7.4},{a:65,m:39.2,s:6.7},{a:75,m:35.3,s:6.5}],
+    female: [{a:25,m:43.0,s:7.7},{a:35,m:40.0,s:6.8},{a:45,m:38.4,s:6.9},{a:55,m:34.4,s:5.7},{a:65,m:31.1,s:5.1},{a:75,m:28.3,s:5.2}]
+  };
+
+  function interp(points, age, key){
+    if (age <= points[0].a) return points[0][key];
+    if (age >= points[points.length-1].a) return points[points.length-1][key];
+    for (var i=0;i<points.length-1;i++){
+      var p=points[i], q=points[i+1];
+      if (age>=p.a && age<=q.a){
+        var t=(age-p.a)/(q.a-p.a);
+        return p[key]+t*(q[key]-p[key]);
+      }
+    }
+    return points[points.length-1][key];
+  }
+
+  // Normal CDF via Abramowitz & Stegun 7.1.26 erf approximation.
+  function cdf(z){
+    var s = z<0 ? -1 : 1, x = Math.abs(z)/Math.SQRT2;
+    var t = 1/(1+0.3275911*x);
+    var y = 1 - (((((1.061405429*t - 1.453152027)*t) + 1.421413741)*t - 0.284496736)*t + 0.254829592)*t*Math.exp(-x*x);
+    return 0.5*(1+s*y);
+  }
+
+  function category(p){
+    if (p < 20) return "Poor";
+    if (p < 40) return "Fair";
+    if (p < 60) return "Average";
+    if (p < 80) return "Good";
+    if (p < 95) return "Excellent";
+    return "Superior";
+  }
+
+  // Fitness age: the age at which the median person of this sex has this VO2max.
+  function fitnessAge(v, sex){
+    var pts = NORMS[sex];
+    // Clamp to the decades we have norms for, not 20 and 80: a score equal to the
+    // age-25 mean IS a fitness age of 25, and the oldest HUNT group is 70+.
+    if (v >= pts[0].m) return pts[0].a;
+    if (v <= pts[pts.length-1].m) return pts[pts.length-1].a;
+    for (var i=0;i<pts.length-1;i++){
+      var p=pts[i], q=pts[i+1];
+      if (v<=p.m && v>=q.m){
+        var t=(p.m-v)/(p.m-q.m);
+        return Math.round(p.a + t*(q.a-p.a));
+      }
+    }
+    return 80;
+  }
+
+  var $ = function(id){ return document.getElementById(id); };
+  var mode = "cooper";
+
+  // Screening gate. Symptoms or a known condition => no test here at all (rule S2).
+  // Inactive => walk test only, because Cooper is a maximal effort (rules S4 and B1).
+  function screen(){
+    var sym = $("q-symptoms").checked, dis = $("q-disease").checked, inact = $("q-inactive").checked;
+    var blocked = sym || dis;
+    var msg = "";
+    if (sym) {
+      msg = "<b>Don’t take either test.</b> Those symptoms need checking by a doctor before you " +
+            "exercise at any intensity, not just before hard efforts. Please see a professional first.";
+    } else if (dis) {
+      msg = "<b>Get medical clearance first.</b> With a heart, lung, metabolic or kidney condition, " +
+            "talk to your doctor before a maximal test. Until you are cleared, keep to light activity.";
+    } else if (inact) {
+      msg = "<b>Walk test only.</b> The 12-minute run is a maximal effort, which is not the right " +
+            "starting point after a few months off. Build 2–4 weeks of easy aerobic work first, and " +
+            "then the run test is a fair option.";
+    }
+    $("screenMsg").innerHTML = msg;
+    $("screenMsg").style.display = msg ? "block" : "none";
+    $("testCard").style.display = blocked ? "none" : "";
+    if (!blocked && inact && mode === "cooper") selectTab("rockport");
+    $("tab-cooper").disabled = inact;
+    $("tab-cooper").title = inact ? "Build up with easy aerobic work first" : "";
+    if (blocked) $("result").classList.remove("show");
+  }
+  ["q-symptoms","q-disease","q-inactive"].forEach(function(id){ $(id).onchange = screen; });
+
+  function selectTab(which){
+    mode = which;
+    $("tab-cooper").setAttribute("aria-selected", which==="cooper");
+    $("tab-rockport").setAttribute("aria-selected", which==="rockport");
+    $("panel-cooper").hidden = which!=="cooper";
+    $("panel-rockport").hidden = which!=="rockport";
+    $("err").textContent = "";
+  }
+  $("tab-cooper").onclick = function(){ selectTab("cooper"); };
+  $("tab-rockport").onclick = function(){ selectTab("rockport"); };
+
+  // 12-minute timer
+  // Count down from wall-clock timestamps: a backgrounded tab must not stretch the test.
+  var TOTAL = 720, remaining = TOTAL, endAt = null, tick = null;
+  function render(){
+    var m = Math.floor(remaining/60), s = remaining%60;
+    $("clock").textContent = m + ":" + (s<10?"0":"") + s;
+  }
+  function stopTick(){ if (tick){ clearInterval(tick); tick = null; } }
+  function frame(){
+    remaining = Math.max(0, Math.round((endAt - Date.now())/1000));
+    render();
+    if (remaining <= 0){ stopTick(); endAt = null; $("startBtn").textContent = "Done"; }
+  }
+  $("startBtn").onclick = function(){
+    if (tick){
+      stopTick();
+      remaining = Math.max(0, Math.round((endAt - Date.now())/1000));
+      endAt = null; render();
+      $("startBtn").textContent = "Resume";
+      return;
+    }
+    if (remaining <= 0) return;
+    endAt = Date.now() + remaining*1000;
+    $("startBtn").textContent = "Pause";
+    tick = setInterval(frame, 250);
+    frame();
+  };
+  $("resetBtn").onclick = function(){
+    stopTick(); endAt = null; remaining = TOTAL; render();
+    $("startBtn").textContent = "Start 12:00";
+  };
+  document.addEventListener("visibilitychange", function(){ if (tick) frame(); });
+  render();
+
+  function toMetres(v, unit){
+    if (unit==="km") return v*1000;
+    if (unit==="mi") return v*1609.344;
+    return v;
+  }
+
+  $("calc").onclick = function(){
+    var age = parseFloat($("age").value);
+    var sex = $("sex").value;
+    var err = "";
+    var vo2 = null;
+
+    if (!(age>=18 && age<=90)) err = "Enter an age between 18 and 90.";
+
+    if (!err && mode==="cooper"){
+      var d = parseFloat($("dist").value);
+      if (!(d>0)) err = "Enter the distance you covered in 12 minutes.";
+      else {
+        var metres = toMetres(d, $("distUnit").value);
+        if (metres < 600 || metres > 6000) err = "That distance looks off — check the units.";
+        else vo2 = (metres - 504.9) / 44.73;
+      }
+    }
+
+    if (!err && mode==="rockport"){
+      var t = parseFloat($("walkmin").value);
+      var hr = parseFloat($("endhr").value);
+      var w = parseFloat($("weight").value);
+      var lb = $("wUnit").value==="kg" ? w*2.20462 : w;
+      if (!(t>0) || !(hr>0) || !(w>0)) err = "Fill in your walk time, finishing heart rate and weight.";
+      else if (t < 8 || t > 30) err = "A 1-mile walk time should be between 8 and 30 minutes.";
+      else if (hr < 60 || hr > 220) err = "Finishing heart rate should be between 60 and 220 bpm.";
+      else if (lb < 66 || lb > 550) err = "That body weight looks off — check the units.";
+      else {
+        vo2 = 132.853 - 0.0769*lb - 0.3877*age - 3.2649*t - 0.1565*hr + (sex==="male" ? 6.315 : 0);
+      }
+    }
+
+    if (!err && (!(vo2>0) || vo2>90)) err = "Those numbers give an impossible score — please check them.";
+
+    if (err){ $("err").textContent = err; $("result").classList.remove("show"); return; }
+    $("err").textContent = "";
+
+    var mean = interp(NORMS[sex], age, "m");
+    var sd   = interp(NORMS[sex], age, "s");
+    var pct  = Math.round(cdf((vo2-mean)/sd) * 100);
+    pct = Math.min(99, Math.max(1, pct));
+    var fa = fitnessAge(vo2, sex);
+
+    $("vo2").textContent = vo2.toFixed(1);
+    $("pct").textContent = pct + "th";
+    $("cat").textContent = category(pct);
+    $("fage").textContent = (fa <= 25 ? "25 or under" : fa >= 75 ? "75+" : String(fa));
+    $("barfill").style.width = pct + "%";
+
+    var band = sex==="male" ? "men" : "women";
+    var decade = (Math.floor(age/10)*10);
+    $("shareText").textContent =
+      "VO₂ max " + vo2.toFixed(1) + " mL/kg/min — " + pct + "th percentile for " +
+      band + " " + decade + "–" + (decade+9) + ", fitness age " + fa + ". #VO2MAXXING";
+
+    $("result").classList.add("show");
+    $("result").scrollIntoView({behavior:"smooth", block:"start"});
+  };
+
+  screen();
+
+  $("copyBtn").onclick = function(){
+    var text = $("shareText").textContent;
+    try {
+      navigator.clipboard.writeText(text).then(function(){
+        $("copyBtn").textContent = "Copied";
+        setTimeout(function(){ $("copyBtn").textContent = "Copy to share"; }, 1800);
+      });
+    } catch(e){
+      $("copyBtn").textContent = "Select the text above to copy";
+    }
+  };
+})();
+</script>
+
+
+</body>
+</html>

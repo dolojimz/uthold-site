@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Privacy — Uthold</title>
+<meta name="description" content="What Uthold stores, what it does not, and where your health data goes — which is nowhere.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="brand/png/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="test.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <rect x="2" y="20" width="60" height="3" rx="1.5" fill="var(--mark-ceiling)"/>
+        <rect x="7" y="42" width="8" height="12" rx="1" fill="var(--mark-bars)"/>
+        <rect x="21" y="34" width="8" height="20" rx="1" fill="var(--mark-bars)"/>
+        <rect x="35" y="27" width="8" height="27" rx="1" fill="var(--mark-bars)"/>
+        <rect x="49" y="10" width="8" height="44" rx="1" fill="var(--mark-hero)"/>
+      </svg>
+      Uthold
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="test.html">Free test</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Draft &middot; not yet reviewed by a lawyer</p>
+    <h1>Privacy</h1>
+    <p class="deck">The short version: the field test sends nothing anywhere, we store your email
+    address only if you ask to join the waitlist, and no health data ever reaches an advertiser or
+    an analytics tool.</p>
+  </header>
+
+  <div class="safety" role="note">
+    <b>This is a draft.</b> It describes what the site and the app actually do, written by the
+    team building them. It has <b>not</b> been reviewed by a lawyer, and it must be before the app
+    is submitted to the App Store. Treat every section below as a statement of intent to be
+    verified, not as a finished legal document.
+  </div>
+
+  <div class="card">
+    <h2>The free VO₂ max test</h2>
+    <p>The test at <a href="test.html">uthold.com/test</a> runs entirely in your browser. Your age,
+    sex, weight, distance, time and heart rate are used to calculate an estimate on your own device
+    and are <strong>never transmitted</strong>. There is no account, no cookie set by us, and no
+    record kept. Close the tab and nothing remains.</p>
+    <p style="margin-bottom:0">The health screening questions work the same way. They only decide
+    what the page shows you.</p>
+  </div>
+
+  <div class="card">
+    <h2>The waitlist</h2>
+    <p>If you submit the waitlist form we store <strong>your email address and nothing else</strong>.
+    We use it once, to tell you the app is available, and for nothing further. We do not sell or
+    share it. You can ask us to delete it at any time and we will.</p>
+    <p style="margin-bottom:0">Your test result is deliberately <strong>not</strong> attached to
+    that email. A VO₂ max estimate is health data, and we do not send health data to third parties.</p>
+  </div>
+
+  <div class="card">
+    <h2>Analytics and advertising</h2>
+    <p>We run no advertising SDK, no attribution SDK and no audience tool, on the site or in the
+    app. If we ever add analytics it will see page views only, and it will never receive anything
+    derived from your health data.</p>
+    <p style="margin-bottom:0">The site loads web fonts from Google Fonts, which means Google
+    receives the request for those font files, including your IP address, as it would for any site
+    using them. That is the only third party the pages contact.</p>
+  </div>
+
+  <div class="card">
+    <h2>The app, when it ships</h2>
+    <p>These are commitments for the iOS app, written down now so they are on the record:</p>
+    <ul>
+      <li><strong>HealthKit access is read-only</strong>, and limited to the three types actually
+      used: VO₂ max, heart rate and resting heart rate. We do not write to HealthKit.</li>
+      <li><strong>Permission is requested in context</strong>, when you first use the feature that
+      needs it — not as a wall of prompts during onboarding.</li>
+      <li><strong>Health data is never stored in iCloud</strong> and never passed to advertising or
+      analytics.</li>
+      <li><strong>Strava is a write-only destination.</strong> If you connect it, we post your
+      session there. We never read your Strava data back, and it is never used to train any model.</li>
+      <li><strong>No AI model receives your health data.</strong> Training decisions are made by
+      explicit rules, not by a language model. Any AI feature explaining a decision would run on
+      your device.</li>
+    </ul>
+    <p style="margin-bottom:0">The app’s privacy manifest currently declares zero collected data
+    types, because nothing leaves your device. If that ever changes, it changes in the same release,
+    and this page changes with it.</p>
+  </div>
+
+  <div class="card">
+    <h2>Your rights</h2>
+    <p style="margin-bottom:0">If you are in the UK or EU, the GDPR gives you the right to access,
+    correct, export or delete the personal data we hold about you — which, unless you joined the
+    waitlist, is none. Email us and we will act on it.</p>
+  </div>
+
+  <footer>
+    Last updated 16 September 2026. This document is a draft pending legal review.
+    Questions: hello@uthold.com
+  </footer>
+</div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <nav aria-label="Footer">
+      <a href="index.html">Home</a>
+      <a href="test.html">Free VO₂ max test</a>
+    </nav>
+    <p class="fine">Uthold is a general wellness product. It does not diagnose, treat, cure or
+    prevent any disease, and it is not medical advice.</p>
+  </div>
+</footer>
+</body>
+</html>
