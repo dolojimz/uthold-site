@@ -310,47 +310,61 @@
 </footer>
 
 <script>
-// The waitlist has no backend yet. Set ENDPOINT to a hosted form service (it must
-// accept a POST of {email}) and this posts to it. Until then it falls back to a
-// mailto so the button is never a dead end.
+// Waitlist. Posts {email} to a hosted form endpoint; nothing else is sent.
 //
-// The mailto fallback costs manual handling: every signup arrives as an email.
-// The subject line carries the address so they can be filtered and extracted in
-// bulk, but it does not scale — set ENDPOINT before any real traffic arrives.
-// The test result is deliberately never included: it is health data, and passing it
-// to a third party is the App Store 5.1.3 problem we are staying clear of.
+// The test result is deliberately never included. A VO2 max estimate is health
+// data, and handing it to a third party is the App Store 5.1.3 problem we are
+// staying clear of — the estimate never leaves the visitor's browser at all.
+//
+// A failed submission must never be silent. The free tier caps at 50 a month and
+// REJECTS past that rather than queueing, so on any failure we hand the visitor
+// the mailto instead: slower for us, but their signup is not lost, and they can
+// see that it wasn't.
 (function(){
-  var ENDPOINT = '';                       // e.g. 'https://formspree.io/f/xxxxxxx'
+  var ENDPOINT = 'https://formspree.io/f/meaoqqda';
   var FALLBACK = 'hello@uthold.com';
   var f = document.getElementById('waitForm'),
       i = document.getElementById('email'),
+      b = f.querySelector('button[type=submit]'),
       m = document.getElementById('waitMsg');
+
+  function mailtoRescue(v, why){
+    m.textContent = why + ' Opening your email app instead — send the message and you are on the list.';
+    window.location.href = 'mailto:' + FALLBACK
+      + '?subject=' + encodeURIComponent('Uthold waitlist: ' + v)
+      + '&body=' + encodeURIComponent('Add ' + v + ' to the Uthold waitlist.');
+  }
+
   f.addEventListener('submit', function(e){
     e.preventDefault();
     var v = (i.value || '').trim();
     if (!v || v.indexOf('@') < 1 || v.lastIndexOf('.') < v.indexOf('@')) {
-      m.textContent = 'That address doesn’t look right — please check it.';
+      m.textContent = 'That address does not look right — please check it.';
       i.focus(); return;
     }
-    if (!ENDPOINT) {
-      m.textContent = 'Opening your email app — send the message and you’re on the list.';
-      // Address goes in the SUBJECT so signups are filterable and machine-extractable
-      // in a mail client, rather than needing to be transcribed out of message bodies.
-      window.location.href = 'mailto:' + FALLBACK
-        + '?subject=' + encodeURIComponent('Uthold waitlist: ' + v)
-        + '&body=' + encodeURIComponent('Add ' + v + ' to the Uthold waitlist.');
-      return;
-    }
+    if (!ENDPOINT) { mailtoRescue(v, 'The list is not wired up yet.'); return; }
+
+    b.disabled = true;
     m.textContent = 'Adding you…';
     fetch(ENDPOINT, {
-      method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body: JSON.stringify({email:v})
+      method: 'POST',
+      headers: {'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify({email: v})
     }).then(function(r){
-      m.textContent = r.ok ? 'You’re on the list. We’ll be in touch once.'
-                           : 'That didn’t go through. Please try again shortly.';
-      if (r.ok) f.reset();
+      b.disabled = false;
+      if (r.ok) {
+        f.reset();
+        m.textContent = 'You are on the list. There is no app to download yet — '
+          + 'you will get one email when it opens, and nothing before then.';
+        return;
+      }
+      // 429 is the monthly cap. Either way the visitor should not lose the signup.
+      mailtoRescue(v, r.status === 429
+        ? 'The list is full for this month.'
+        : 'That did not go through.');
     }).catch(function(){
-      m.textContent = 'That didn’t go through. Please try again shortly.';
+      b.disabled = false;
+      mailtoRescue(v, 'That did not go through.');
     });
   });
 })();
