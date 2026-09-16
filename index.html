@@ -268,6 +268,10 @@
 // The waitlist has no backend yet. Set ENDPOINT to a hosted form service (it must
 // accept a POST of {email}) and this posts to it. Until then it falls back to a
 // mailto so the button is never a dead end.
+//
+// The mailto fallback costs manual handling: every signup arrives as an email.
+// The subject line carries the address so they can be filtered and extracted in
+// bulk, but it does not scale — set ENDPOINT before any real traffic arrives.
 // The test result is deliberately never included: it is health data, and passing it
 // to a third party is the App Store 5.1.3 problem we are staying clear of.
 (function(){
@@ -285,8 +289,11 @@
     }
     if (!ENDPOINT) {
       m.textContent = 'Opening your email app — send the message and you’re on the list.';
-      window.location.href = 'mailto:' + FALLBACK + '?subject=Waitlist&body='
-        + encodeURIComponent('Add ' + v + ' to the Uthold waitlist.');
+      // Address goes in the SUBJECT so signups are filterable and machine-extractable
+      // in a mail client, rather than needing to be transcribed out of message bodies.
+      window.location.href = 'mailto:' + FALLBACK
+        + '?subject=' + encodeURIComponent('Uthold waitlist: ' + v)
+        + '&body=' + encodeURIComponent('Add ' + v + ' to the Uthold waitlist.');
       return;
     }
     m.textContent = 'Adding you…';
