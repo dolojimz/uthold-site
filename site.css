@@ -5,6 +5,8 @@
      dark  rule-2 #453B50 -> #736C7C  (was 1.65:1, control borders need 3.0)
      light ink-3 #8C7F96 -> #6E6178   (was 3.56:1)
      light rule-2 #D3C8D8 -> #8C7F96  (was 1.61:1)
+     dark  sunk  #241E2D -> #1B1622   (put ink-3 at 4.27:1; also now properly
+                                       recessed, as sunk already is in light)
    Run web/brand/contrast.mjs before changing any of them. */
 
 :root{
@@ -21,7 +23,7 @@
   --maxw:1080px;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --ground:#141019; --surface:#1D1825; --sunk:#241E2D;
+  --ground:#141019; --surface:#1D1825; --sunk:#1B1622;
   --ink:#F3EEF5; --ink-2:#A79AB1; --ink-3:#8A7F94;
   --rule:#3A3343; --rule-2:#736C7C;
   --arterial:#FF6376; --venous:#9A8BE8; --band:rgba(255,99,118,.10); --on-accent:#141019;
@@ -29,7 +31,7 @@
   --mark-bars:#A79AB1; --mark-ceiling:#6A6471; --mark-hero:#FF6376;
 }}
 :root[data-theme="dark"]{
-  --ground:#141019; --surface:#1D1825; --sunk:#241E2D;
+  --ground:#141019; --surface:#1D1825; --sunk:#1B1622;
   --ink:#F3EEF5; --ink-2:#A79AB1; --ink-3:#8A7F94;
   --rule:#3A3343; --rule-2:#736C7C;
   --arterial:#FF6376; --venous:#9A8BE8; --band:rgba(255,99,118,.10); --on-accent:#141019;
