@@ -1,3 +1,4 @@
-# Pre-launch preview. Remove this file at launch.
+# PRE-LAUNCH: blocks all indexing while the copy and privacy policy are drafts.
+# DELETE THIS FILE AT LAUNCH. See the launch checklist in README.md.
 User-agent: *
 Disallow: /
