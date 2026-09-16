@@ -177,3 +177,11 @@ section[id]{scroll-margin-top:84px}
   html{scroll-padding-top:16px}
   section[id]{scroll-margin-top:16px}
 }
+
+/* mirrored showcase: image on the right, so consecutive blocks alternate */
+.showcase.flip{grid-template-columns:minmax(0,1fr) minmax(0,340px)}
+.showcase.flip img{order:2}
+@media (max-width:860px){
+  .showcase.flip{grid-template-columns:1fr}
+  .showcase.flip img{order:-1}
+}
