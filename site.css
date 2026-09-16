@@ -185,3 +185,14 @@ section[id]{scroll-margin-top:84px}
   .showcase.flip{grid-template-columns:1fr}
   .showcase.flip img{order:-1}
 }
+
+/* the watch capture is near-square, unlike the phone renders — keep it small so
+   it reads as a watch rather than a cropped phone */
+.showcase.watch{grid-template-columns:minmax(0,1fr) minmax(0,300px)}
+.showcase.watch img{order:2;border-radius:12px;max-width:300px}
+.showcase.watch .real{font-family:var(--mono);font-size:11px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--good);margin:0 0 14px}
+@media (max-width:860px){
+  .showcase.watch{grid-template-columns:1fr}
+  .showcase.watch img{order:-1}
+}
