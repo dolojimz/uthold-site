@@ -95,3 +95,12 @@ main > .wrap > footer{margin-top:40px;padding-top:20px;border-top:1px solid var(
 .after-test h2{font-size:22px;font-weight:800;margin-bottom:8px}
 .after-test p{color:var(--ink-2);font-size:15.5px}
 .after-test .btn{margin-top:6px}
+
+/* waitlist inside the result experience */
+.after-test form{margin-top:18px}
+.after-test label{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+.after-test input[type=email]{width:100%;padding:13px 14px;min-height:48px;font-family:var(--mono);
+  font-size:16px;color:var(--ink);background:var(--ground);border:1px solid var(--rule-2);border-radius:6px}
+.after-test .btn{width:100%;margin-top:14px}
+.after-test .small{font-size:14px;color:var(--ink-2);margin:14px 0 0}

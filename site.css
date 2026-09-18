@@ -196,3 +196,13 @@ section[id]{scroll-margin-top:84px}
   .showcase.watch{grid-template-columns:1fr}
   .showcase.watch img{order:-1}
 }
+
+/* two screenshots side by side with one line each, for proof that does not need
+   a full essay beside it */
+.shots-compact{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,4vw,44px);
+  margin-top:clamp(32px,5vw,56px);max-width:760px}
+.shots-compact img{width:100%;border-radius:14px;border:1px solid var(--rule);display:block}
+.shots-compact figure{margin:0}
+.shots-compact figcaption{font-size:15px;color:var(--ink-2);margin-top:14px}
+.shots-compact b{color:var(--ink);font-family:var(--display)}
+@media (max-width:620px){.shots-compact{grid-template-columns:1fr;max-width:340px}}

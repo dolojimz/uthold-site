@@ -210,11 +210,21 @@
 </footer>
 </div>
 <div class="wrap">
-  <div class="after-test">
-    <h2>Got your number?</h2>
-    <p>That is the baseline. Uthold turns it, a goal and the hours you actually have into the
-    sessions you train each week &mdash; and adjusts when your recovery says to. iOS first, in build now.</p>
-    <a class="btn btn-primary" href="index.html#waitlist">Join the waitlist</a>
+  <div class="after-test" id="afterTest" hidden>
+    <h2>Want the plan that comes next?</h2>
+    <p>That number is your baseline. Uthold turns it, a goal and the hours you actually have into
+    the sessions you train each week — and adjusts when your recovery says to. iOS first, in build
+    now. One email when it opens.</p>
+    <form id="tForm" novalidate>
+      <label for="temail">Email address</label>
+      <input type="email" id="temail" name="email" autocomplete="email" required
+             placeholder="you@example.com" aria-describedby="tnote">
+      <button class="btn btn-primary" type="submit">Email me when it opens</button>
+      <p class="small" id="tnote">We store your email address and nothing else. <b>Your result is
+      not sent with it</b> — it never leaves this browser. See the
+      <a href="privacy.html">privacy policy</a>.</p>
+      <p class="small" id="tmsg" role="status" aria-live="polite"></p>
+    </form>
   </div>
 </div>
 </main>
@@ -480,5 +490,38 @@
 </script>
 
 
+<script>
+// Reveals the waitlist only once a result exists, and posts the EMAIL ONLY.
+// The VO2 max estimate is health data and is never included — it does not leave
+// this browser at all. Separate from the test's own script on purpose: that block
+// is byte-identical to the repo-root vo2test.html and must stay that way.
+(function(){
+  var ENDPOINT='https://formspree.io/f/meaoqqda', FALLBACK='hello@uthold.com';
+  var wrap=document.getElementById('afterTest'), res=document.getElementById('result');
+  var f=document.getElementById('tForm'), i=document.getElementById('temail'),
+      m=document.getElementById('tmsg'), b=f.querySelector('button[type=submit]');
+  function reveal(){ if(res.classList.contains('show')) wrap.hidden=false; }
+  new MutationObserver(reveal).observe(res,{attributes:true,attributeFilter:['class']});
+  reveal();
+  function rescue(v,why){
+    m.textContent=why+' Opening your email app instead — send it and you are on the list.';
+    window.location.href='mailto:'+FALLBACK+'?subject='+encodeURIComponent('Uthold waitlist: '+v)
+      +'&body='+encodeURIComponent('Add '+v+' to the Uthold waitlist.');
+  }
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var v=(i.value||'').trim();
+    if(!v||v.indexOf('@')<1||v.lastIndexOf('.')<v.indexOf('@')){
+      m.textContent='That address does not look right — please check it.'; i.focus(); return; }
+    b.disabled=true; m.textContent='Adding you…';
+    fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({email:v})})
+      .then(function(r){ b.disabled=false;
+        if(r.ok){ f.reset(); m.textContent='You are on the list. One email when the app opens, and nothing before then.'; return; }
+        rescue(v, r.status===429?'The list is full for this month.':'That did not go through.'); })
+      .catch(function(){ b.disabled=false; rescue(v,'That did not go through.'); });
+  });
+})();
+</script>
 </body>
 </html>
