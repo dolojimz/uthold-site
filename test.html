@@ -277,6 +277,20 @@
     return 0.5*(1+s*y);
   }
 
+  // "21th" and "1th" were on the result screen and in the share text. Percentile is clamped
+  // to 1-99, so the teens rule only ever bites at 11, 12 and 13, but it is written in full
+  // rather than tuned to the current clamp.
+  function ordinal(n) {
+    var t = n % 100;
+    if (t >= 11 && t <= 13) return n + "th";
+    switch (n % 10) {
+      case 1:  return n + "st";
+      case 2:  return n + "nd";
+      case 3:  return n + "rd";
+      default: return n + "th";
+    }
+  }
+
   function category(p){
     if (p < 20) return "Poor";
     if (p < 40) return "Fair";
@@ -427,17 +441,23 @@
     pct = Math.min(99, Math.max(1, pct));
     var fa = fitnessAge(vo2, sex);
 
+    // F1: a BOUND is honest, a point value is not. The table runs 20 to 70+, so outside it
+    // the only true statement is "75+" or "25 or under". Computed ONCE here and reused by the
+    // share text below — the share string used to interpolate the raw number, which put
+    // "fitness age 75" on the one surface that travels furthest and carries least context.
+    var faText = (fa <= 25 ? "25 or under" : fa >= 75 ? "75+" : String(fa));
+
     $("vo2").textContent = vo2.toFixed(1);
-    $("pct").textContent = pct + "th";
+    $("pct").textContent = ordinal(pct);
     $("cat").textContent = category(pct);
-    $("fage").textContent = (fa <= 25 ? "25 or under" : fa >= 75 ? "75+" : String(fa));
+    $("fage").textContent = faText;
     $("barfill").style.width = pct + "%";
 
     var band = sex==="male" ? "men" : "women";
     var decade = (Math.floor(age/10)*10);
     $("shareText").textContent =
-      "VO₂ max " + vo2.toFixed(1) + " mL/kg/min — " + pct + "th percentile for " +
-      band + " " + decade + "–" + (decade+9) + ", fitness age " + fa + ". #VO2MAXXING";
+      "VO₂ max " + vo2.toFixed(1) + " mL/kg/min — " + ordinal(pct) + " percentile for " +
+      band + " " + decade + "–" + (decade+9) + ", fitness age " + faText + ". #VO2MAXXING";
 
     $("result").classList.add("show");
     $("result").scrollIntoView({behavior:"smooth", block:"start"});
