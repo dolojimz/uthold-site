@@ -141,6 +141,30 @@
     is measured directly, instead of on a noisy weekly VO₂ max line.</p>
   </details>
   <details>
+    <summary>What is “fitness age”, and why does it sometimes not show one?</summary>
+    <p style="margin-top:12px">It is a <b>reference-equivalent</b> fitness age: the age at which
+    the median person of your sex has the VO₂ max you just recorded. That is all it is. It is not
+    your biological age, and it is not years added to or taken off your life — we will not put a
+    number on either of those, because nothing here supports one.</p>
+    <p>The reference is the Norwegian HUNT study, which covers roughly ages 20 to 70 and up. Beyond
+    those edges there is no fitness age to report, so the app reports none rather than handing you
+    the nearest row. The free test on this site does the same thing a different way: it will tell
+    you “75+” or “25 or under” rather than inventing a precise number it cannot support.</p>
+    <p>That sounds pedantic until you see what the alternative does. Our own first implementation
+    clamped to the edge of the table, so any male reading at or below 35.3 came back as “fitness
+    age 75” however far below it went — meaning an 85-year-old with a genuinely poor result was
+    told he had the fitness of a 75-year-old. Ten years <i>younger</i>, purely because the
+    reference ran out. We had even written a test that asserted that behaviour, which is how it
+    survived long enough to be embarrassing.</p>
+    <p style="margin-bottom:0">It is worth knowing that other apps ship the clamped version as a
+    feature. An app that tells you your fitness age is 23 and congratulates you on reversing ageing
+    is usually telling you its table ran out. One more limit worth stating: HUNT's rows are age
+    <i>groups</i>, not single years — the oldest is an open-ended 70 and over that cannot tell 72
+    from 88 — so a fitness age near the edges is coarser than a single number makes it look.
+    Norms from Loe et al., PLOS ONE, used under CC&nbsp;BY.</p>
+  </details>
+
+  <details>
     <summary>Why does my number fall when I stop training?</summary>
     <p style="margin-top:12px">Because that is what VO₂ max does, and it is why it has a sawtooth
     shape for anyone who trains in cycles. It climbs through a build, then falls back after the
