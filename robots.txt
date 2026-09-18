@@ -1,4 +1,7 @@
-# PRE-LAUNCH: blocks all indexing while the copy and privacy policy are drafts.
-# DELETE THIS FILE AT LAUNCH. See the launch checklist in README.md.
+# The pre-launch block was removed 2026-09-18 on Jimmy's instruction, after the
+# checklist items it was waiting on were verified: the Formspree endpoint tested
+# end to end, and valid certificates on uthold.com, www and uthold.app.
 User-agent: *
-Disallow: /
+Allow: /
+
+Sitemap: https://uthold.com/sitemap.xml

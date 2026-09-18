@@ -207,3 +207,12 @@ section[id]{scroll-margin-top:84px}
 .shots-compact figcaption{font-size:15px;color:var(--ink-2);margin-top:14px}
 .shots-compact b{color:var(--ink);font-family:var(--display)}
 @media (max-width:620px){.shots-compact{grid-template-columns:1fr;max-width:340px}}
+
+/* Price. Two figures, stated plainly and never as a strikethrough against an
+   invented "usual" price. The monthly equivalent of the annual is spelled out
+   because working it out is the reader's job otherwise. */
+.price-row{display:flex;flex-wrap:wrap;gap:14px 40px;margin:18px 0 22px}
+.price{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.price .amt{font-family:var(--display);font-weight:800;font-size:clamp(34px,6vw,46px);
+  letter-spacing:-0.02em;color:var(--ink);line-height:1.05}
+.price .per{font-size:16px;color:var(--ink-2)}
