@@ -76,6 +76,15 @@
 
   <!-- Cooper -->
   <div id="panel-cooper" role="tabpanel" aria-labelledby="tab-cooper">
+    <!-- THE PROTOCOL SITS ABOVE THE START BUTTON. It used to live in a collapsed accordion
+         BELOW both the calculator and the result, so a first-timer could start a 12-minute
+         countdown without ever learning they need a flat measured route or a warm-up. The
+         result of a test done wrong is not a worse result, it is a meaningless one. -->
+    <div class="prep">
+      <b>Before you start:</b> a flat measured loop or a track &mdash; not a phone GPS guess on an
+      unknown route. Warm up easy for 10 minutes. Then cover as much ground as you can in 12
+      minutes, at a pace you can just hold to the end.
+    </div>
     <div class="timer">
       <span class="clock" id="clock">12:00</span>
       <button class="tbtn" id="startBtn" type="button">Start 12:00</button>
@@ -94,6 +103,18 @@
 
   <!-- Rockport -->
   <div id="panel-rockport" role="tabpanel" aria-labelledby="tab-rockport" hidden>
+    <!-- The validation range was only reachable AFTER a result, in an accordion. Someone outside
+         30-69 could complete the walk, read a number, and only then learn the equation was not
+         built for them. It goes first now. -->
+    <div class="prep">
+      <b>Before you start:</b> walk one measured mile as fast as you comfortably can, on the flat.
+      Take your pulse <b>immediately</b> at the finish &mdash; it falls fast, so a reading a minute
+      later is a different number.
+      <br><br>
+      <b>Validated for ages 30&ndash;69.</b> Outside that, treat the result as rough: published
+      guidance subtracts about 6&nbsp;mL/kg/min for ages 18&ndash;24, and the test is too easy to be
+      useful if you are already fit.
+    </div>
     <div class="grid">
       <div>
         <label for="walkmin">1-mile walk time</label>
@@ -364,6 +385,23 @@
     $("panel-cooper").hidden = which!=="cooper";
     $("panel-rockport").hidden = which!=="rockport";
     $("err").textContent = "";
+
+    // B2: "a Cooper result isn't comparable to a Rockport result". Switching tabs used to swap
+    // the panels and LEAVE the previous result on screen, so a visitor could calculate a Cooper
+    // score, switch to the walk test, and read — and Copy to share — the Cooper number sitting
+    // under the Rockport heading. The rule this page states in its own accordion, broken by its
+    // own tab control.
+    clearResult();
+  }
+
+  function clearResult(){
+    $("result").classList.remove("show");
+    $("vo2").textContent = "\u2014";
+    $("pct").textContent = "\u2014";
+    $("cat").textContent = "\u2014";
+    $("fage").textContent = "\u2014";
+    $("shareText").textContent = "\u2014";
+    $("barfill").style.width = "0%";
   }
   $("tab-cooper").onclick = function(){ selectTab("cooper"); };
   $("tab-rockport").onclick = function(){ selectTab("rockport"); };

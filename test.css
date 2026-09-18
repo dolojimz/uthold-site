@@ -104,3 +104,9 @@ main > .wrap > footer{margin-top:40px;padding-top:20px;border-top:1px solid var(
   font-size:16px;color:var(--ink);background:var(--ground);border:1px solid var(--rule-2);border-radius:6px}
 .after-test .btn{width:100%;margin-top:14px}
 .after-test .small{font-size:14px;color:var(--ink-2);margin:14px 0 0}
+
+/* the protocol, immediately above the control that starts it */
+.prep{margin:0 0 16px;padding:14px 16px;background:var(--sunk);border:1px solid var(--rule);
+  border-left:3px solid var(--ink-3);border-radius:6px;font-size:14.5px;line-height:1.55;
+  color:var(--ink-2)}
+.prep b{color:var(--ink)}
