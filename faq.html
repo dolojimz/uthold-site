@@ -44,9 +44,9 @@
 <div class="wrap">
   <header>
     <p class="eyebrow">Questions</p>
-    <h1>Straight answers, including the unflattering ones.</h1>
-    <p class="deck">Every answer below traces to a rule in our training rulebook, each of which
-    carries an evidence grade. Where the honest answer is “we don’t know”, that is what it says.</p>
+    <h1>What the app does, and what the numbers can’t tell you.</h1>
+    <p class="deck">Every answer below traces to a rule in our training rulebook, and each rule
+    carries a grade for how strong its evidence is. Where the answer is “we don’t know”, it says so.</p>
   </header>
 
   <details open>
@@ -68,7 +68,7 @@
     on, and they are capped for recovery reasons regardless of how much time you have.</p>
   </details>
   <details>
-    <summary>Do I need an Apple Watch?</summary>
+    <summary>Do I need a watch, for the test or the app?</summary>
     <p style="margin-top:12px">No. The <a href="test.html">field test on this site</a> runs in your
     browser with nothing but a stopwatch and somewhere flat to run or walk, and you can enter
     results by hand.</p>
@@ -79,8 +79,8 @@
   </details>
   <details>
     <summary>Can I use a bike, a rower or an incline walk instead of running?</summary>
-    <p style="margin-top:12px">Yes, and the app supports it. But a swap is an <b>adaptation</b>,
-    not a translation, and that distinction is the whole answer.</p>
+    <p style="margin-top:12px">Yes, and the app supports it. The catch is that changing
+    activity changes your heart-rate targets.</p>
     <p>Your maximum heart rate is not the same on a bike as it is running, and the gap is not a
     fixed number you can subtract. A heart-rate band derived from running can land at or above your
     actual maximum on a bike — which would turn a hard-but-doable interval into one nobody can
@@ -113,13 +113,12 @@
     <p>In the app, health data is read-only and limited to the three types actually used. Nothing
     is passed to advertising or analytics, because there is no advertising or analytics SDK in it.
     The privacy manifest declares zero collected data types.</p>
-    <p style="margin-bottom:0">One thing worth saying because most apps never check: we had written
-    “never iCloud”, and then found the stored health record was being swept into ordinary device
-    backups anyway. We fixed it. The full detail is in the <a href="privacy.html">privacy
-    policy</a>, which is still a draft pending legal review.</p>
+    <p style="margin-bottom:0">We had written “never iCloud”, then found the stored health record
+    was being swept into ordinary device backups anyway. We fixed it. The detail is in the
+    <a href="privacy.html">privacy policy</a>, still a draft pending legal review.</p>
   </details>
   <details>
-    <summary>Will my VO₂ max actually go up?</summary>
+    <summary>How much could my VO₂ max improve?</summary>
     <p style="margin-top:12px">Probably, and we will tell you roughly how much as a <b>range</b>,
     never a single number and never a promise. Over twelve weeks at the recommended time budget,
     people starting below the 40th percentile for their age typically gain about 2 to 5 mL/kg/min.
@@ -150,8 +149,8 @@
     <summary>Do I get a progress chart?</summary>
     <p style="margin-top:12px">Yes, and most of the design work went into deciding what to leave
     off it.</p>
-    <p>You get your change since baseline over time, with three things every competitor’s chart
-    does that ours doesn’t. Each source is kept as <b>its own history</b> — a Cooper result and a
+    <p>It shows how your results have changed since your first test, and it does three things
+    differently. Each source is kept as <b>its own history</b> — a Cooper result and a
     watch estimate measure different things, so they never share a line. Results are plotted as
     separate points rather than joined into a curve, because a smooth line through field tests
     draws confidence that isn’t in the data. And the test’s change threshold is drawn on the chart
@@ -183,8 +182,8 @@
     clamped to the edge of the table, so any male reading at or below 35.3 came back as “fitness
     age 75” however far below it went — meaning an 85-year-old with a genuinely poor result was
     told he had the fitness of a 75-year-old. Ten years <i>younger</i>, purely because the
-    reference ran out. We had even written a test that asserted that behaviour, which is how it
-    survived long enough to be embarrassing.</p>
+    reference ran out. Our own software checks had been written to expect that result, which is
+    how it survived so long.</p>
     <p style="margin-bottom:0">It is worth knowing that other apps ship the clamped version as a
     feature. An app that tells you your fitness age is 23 and congratulates you on reversing ageing
     is usually telling you its table ran out. One more limit worth stating: HUNT's rows are age
@@ -222,7 +221,7 @@
     invalidated rather than carried forward.</p>
   </details>
   <details>
-    <summary>Why don’t you have Tabata, or thirty other protocols?</summary>
+    <summary>Why is the session library so short, and why no Tabata?</summary>
     <p style="margin-top:12px">Because we ship what we can defend, and a long protocol list is
     easier to market than to justify.</p>
     <p>Tabata is the clearest example. The 1996 study used a cycle ergometer at about 170% of
@@ -239,10 +238,10 @@
   </details>
 
   <div class="after-test" style="margin-top:34px">
-    <h2>Something we haven’t answered?</h2>
-    <p>If an answer here matters to you and it isn’t written down, that is worth knowing — it
-    usually means a rule needs settling rather than a page needing copy.</p>
-    <a class="btn btn-primary" href="index.html#waitlist">Join the waitlist</a>
+    <h2>Get an email when the app opens</h2>
+    <p>One message when the iOS app is ready, and nothing before it. If a question you needed
+    answering isn’t here, reply to that email and ask.</p>
+    <a class="btn btn-primary" href="index.html#waitlist">Email me when it opens</a>
   </div>
 
   <footer>

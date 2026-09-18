@@ -72,13 +72,11 @@
       <div class="vcard ours">
         <span class="vtag">What moves it</span>
         <h3>Minutes near your maximum</h3>
-        <p>What separates a session that moved something from one that merely took an hour is time
-        spent near your ceiling — above roughly 90% of your maximum heart rate. Uthold builds the
-        week to accumulate it, sends the targets to your watch, and afterwards measures exactly how
-        much you got. That is a far harder number to flatter than a weekly VO₂ max estimate.</p>
-        <p style="margin:12px 0 0;font-size:14.5px;color:var(--ink-3)">We will not tell you a
-        target figure, because nobody has established one we would trust. It is a record of what
-        the session was, not a mark out of ten.</p>
+        <p>Uthold counts the minutes you spend above roughly 90% of your maximum heart rate. It builds
+        the week to accumulate them, sends the targets to your watch, and measures what you actually
+        got. That number is much harder to flatter than a weekly VO₂ max estimate.</p>
+        <p style="margin:12px 0 0;font-size:14.5px;color:var(--ink-3)">We won’t tell you how many
+        minutes is enough. Nobody has established a figure we would trust.</p>
       </div>
     </div>
   </div>
@@ -113,7 +111,7 @@
       <img src="img/Progress.png" width="390" height="1020"
            alt="The Progress screen: change since baseline over 14 months, plotted as separate dots with no connecting line. A shaded band marks plus or minus 7.2, the Cooper test's change threshold. One point, the peak six months in, sits above the band; every later point including the post-race decline sits inside it.">
       <dl>
-        <dt>The band is what makes the drop readable</dt>
+        <dt>The shaded band marks what the test cannot resolve</dt>
         <dd>Fourteen months, one full cycle, plotted as separate results rather than a curve. The
         shaded strip is the Cooper test’s change threshold: here only the peak clears it, and the
         whole post-race decline sits inside it — visible, but not large enough for the test to call
@@ -127,8 +125,7 @@
       you are is a real result — and the only one nobody thinks to celebrate. What that takes, and
       where the evidence for it stops, is in the
       <a href="faq.html">questions</a>.</p>
-      <cite>Choosing maintenance as a goal is not in the app yet. It is on the list, and we would
-      rather say so than show you a screen that doesn’t exist.</cite>
+      <cite>Choosing maintenance as a goal isn’t in the app yet. It’s on the list.</cite>
     </div>
   </div>
 </section>
@@ -136,9 +133,8 @@
 <section id="difference">
   <div class="wrap">
     <h2>The plan is easy. Changing it is the hard part.</h2>
-    <p class="lede">Deciding what to run when you are fresh is the easy half. Deciding what to run
-    when your recovery says back off, and being able to say why, is the half that decides whether
-    the number moves.</p>
+    <p class="lede">Any app can hand you a session when you are fresh. Uthold reduces the load when
+    your recovery signals say to, and tells you which signal made the call.</p>
     <div class="versus">
       <div class="vcard">
         <span class="vtag">The usual approach</span>
@@ -160,10 +156,10 @@
 
 <section id="how">
   <div class="wrap">
-    <h2>Three steps, then it runs itself.</h2>
-    <p class="lede">The plan follows explicit written rules, each carrying an evidence grade —
-    not a language model guessing at your training. Where a rule is an unvalidated default, it
-    says so, and several are queued for review by an exercise physiologist.</p>
+    <h2>Test, set a goal, train the week you get.</h2>
+    <p class="lede">Written training rules pick your sessions, not an AI. Each rule carries a grade
+    for how strong its evidence is, unvalidated ones say so, and several are waiting on review by an
+    exercise physiologist.</p>
     <div class="steps">
       <div class="step">
         <span class="n"></span>
@@ -194,14 +190,14 @@
 
 <section id="app">
   <div class="wrap">
-    <h2>What it looks like.</h2>
+    <h2>Your week, your session, your watch.</h2>
     <p class="lede">Dark because it gets read outdoors, mid-interval, at ninety-odd percent of your
     maximum heart rate.</p>
     <div class="showcase">
       <img src="img/ThisWeek.png" width="390" height="844"
            alt="The This Week screen: today is a Norwegian 4x4 at a target of 162 to 171 beats per minute, 43 minutes. Below it the rest of the week — easy aerobic Tuesday, rest Wednesday, short 30/15 intervals Thursday, long easy Saturday. A recovery panel reads &quot;in range&quot;.">
       <dl>
-        <dt>The week is already built</dt>
+        <dt>Today’s session, and the days around it</dt>
         <dd>Today’s session, and the days around it. Hard days are kept apart, and the week mixes
         long intervals with short ones.</dd>
 
@@ -213,7 +209,7 @@
         <dd>The panel reports whether your signals support the full load, in words as well as
         colour. When they don’t, the session gets smaller.</dd>
 
-        <dt>It goes to the watch, with the targets attached</dt>
+        <dt>Sends the session to your watch, targets and all</dt>
         <dd>“To Watch” sends the session as a structured workout through Apple WorkoutKit or the
         Garmin Training API — every interval, every recovery, and the heart-rate target for each
         one. Your watch counts them down and tells you when to go. You are not reading a plan off
@@ -238,15 +234,14 @@
            alt="An Apple Watch showing the scheduled session: Norwegian 4x4, a 10 minute warm-up at 122 to 141 BPM, then Repeat 4 containing Work for 4 minutes at 169 to 178 BPM followed by Recovery.">
       <dl>
         <p class="real">Not a mockup — a real session on a real watch</p>
-        <dt>The session arrives built, with its targets</dt>
+        <dt>Warm-up, work and recovery, already on the watch</dt>
         <dd>That is Apple’s own Workout app, showing a session Uthold sent it: a ten-minute
         warm-up with its own heart-rate band, a work interval repeated four times, and the recovery
         between them. Your watch counts them down and tells you when to go.</dd>
 
-        <dt>The bands are that runner’s, not everyone’s</dt>
-        <dd>169–178 is one person’s work range, worked out from their own maximum. The phone screen
-        further up shows 162–171, because that is someone else. Yours will be different again —
-        that is the whole point of the engine knowing who you are.</dd>
+        <dt>Targets come from your own maximum</dt>
+        <dd>169–178 is one runner’s range, worked out from their own maximum. The phone screen
+        above shows 162–171, because that is a different person. Yours will be different again.</dd>
 
         <dt>No second app on your wrist</dt>
         <dd>Nothing extra to install or launch. The session is simply there in the workout list,
@@ -261,9 +256,8 @@
     <h2>Why this number, and what we won’t claim.</h2>
     <p class="lede">VO₂ max is how much oxygen your body can use at full effort. It is one of the
     better-studied markers of cardiorespiratory fitness, and unlike most numbers people track, it
-    responds to training. It is also why the off-season is worth more than it looks: the next race
-    is months away, but the health association doesn’t take an off-season — and between events is
-    exactly when holding the number is cheapest.</p>
+    responds to training. Between races is also when it is easiest to let go — and,
+    on the evidence below, when holding on to it takes the least training time.</p>
     <div class="ev">
       <p>Higher cardiorespiratory fitness is <strong>linked to</strong> lower rates of heart disease
       and early death across large populations. In the Norwegian HUNT study, each extra
@@ -275,7 +269,7 @@
       <p><strong>It also does not climb forever.</strong> The gains are largest when you start
       furthest back, and they get smaller as you get fitter. A product promising a line that rises
       week after week is promising something that stops being true the moment you are actually
-      fit. We would rather tell you that now.</p>
+      fit.</p>
       <cite>Loe et al., PLOS ONE — HUNT 3 Fitness Study, used under CC&nbsp;BY.</cite>
     </div>
   </div>
