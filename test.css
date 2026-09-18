@@ -38,8 +38,10 @@ main label.chk input{width:auto;margin-top:4px;flex:none;min-width:20px;min-heig
 main label{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;
   text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
 main label[for]{color:var(--ink-3)}
+/* 16px is the floor: iOS Safari zooms the page when a focused input is smaller,
+   and these are every field in the conversion flow. */
 main input,main select{width:100%;padding:12px 13px;min-height:48px;font-family:var(--mono);
-  font-size:15px;color:var(--ink);background:var(--ground);border:1px solid var(--rule-2);border-radius:6px}
+  font-size:16px;color:var(--ink);background:var(--ground);border:1px solid var(--rule-2);border-radius:6px}
 .row-unit{display:grid;grid-template-columns:1fr auto;gap:8px}
 
 .go{margin-top:20px;width:100%;appearance:none;border:0;border-radius:7px;background:var(--arterial);
